@@ -43,7 +43,7 @@ public class RemoveTagCommandParser implements Parser<RemoveTagCommand> {
             throw new ParseException(RemoveTagCommand.MESSAGE_USAGE);
         }
 
-        return index.isPresent() ? new RemoveTagCommand(index.get(), tags) : new RemoveTagCommand(tags);
+        return index.map(i -> new RemoveTagCommand(i, tags)).orElse(new RemoveTagCommand(tags));
     }
 
     private Optional<Index> parseIndex(String arg) throws ParseException {
